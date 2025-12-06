@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Little Owls Club – Life Skills Made Fun</title>
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    
+    <!-- Preconnect for faster font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        html { scroll-behavior: smooth; }
+        section { scroll-margin-top: 100px; }
+        @media (min-width: 768px) { section { scroll-margin-top: 160px; } }
+        
+        body { 
+            font-family: "Poppins", sans-serif; 
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5 { font-family: "Quicksand", sans-serif; font-weight: 700; }
+        
+        :root {
+            --lo-coral: #ff6b6b;
+            --lo-dark: #34231d;
+        }
+        
+        .hero-btn-primary {
+            padding: 12px 28px;
+            background-color: var(--lo-coral);
+            color: #fff;
+            border-radius: 9999px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            transition: 0.2s;
+            display: inline-block;
+        }
+        .hero-btn-primary:hover { transform: translateY(-2px); background-color: #ff5252; }
+        
+        header { 
+            backdrop-filter: blur(10px); 
+            background: rgba(255,255,255,0.95);
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 70%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-menu.active { transform: translateX(0); display: block; }
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+        }
+        .menu-overlay.active { display: block; }
+        
+        /* Optimize backdrop blur for mobile */
+        @media (max-width: 768px) {
+            header { backdrop-filter: blur(5px); }
+            .bg-white\/60 { background-color: rgba(255,255,255,0.8); }
+        }
+        
+        /* Responsive text sizing */
+        @media (max-width: 640px) {
+            h1 { font-size: 2rem !important; }
+            h2 { font-size: 1.75rem !important; }
+            h3 { font-size: 1.25rem !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 w-full z-[9999]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-3 sm:py-4 flex items-center justify-between">
+        
+        <a href="#home" class="flex items-center gap-2 sm:gap-5">
+            <img src="assets/logo.png" class="w-16 sm:w-[130px] h-auto" loading="eager" alt="Little Owls Club Logo" />
+            <div>
+                <p class="font-extrabold text-xl sm:text-4xl leading-tight" style="color: var(--lo-dark)">
+                    Little Owls Club
+                </p>
+                <p class="text-sm sm:text-lg tracking-wide font-medium -mt-1 text-center" style="color: var(--lo-coral)">
+                    Life Skills Made Fun
+                </p>
+            </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex gap-6 lg:gap-10 font-bold text-lg lg:text-xl">
+            <a href="#home" class="hover:text-lo-coral transition">Home</a>
+            <a href="#programs" class="hover:text-lo-coral transition">Programs</a>
+            <a href="#sessions" class="hover:text-lo-coral transition">Sessions</a>
+            <a href="#philosophy" class="hover:text-lo-coral transition">Philosophy</a>
+            <a href="#team" class="hover:text-lo-coral transition">Team</a>
+            <a href="#contact" class="hover:text-lo-coral transition">Contact</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden p-2" onclick="toggleMenu()" aria-label="Toggle menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div class="menu-overlay" onclick="toggleMenu()"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu">
+    <div class="p-6">
+        <button onclick="toggleMenu()" class="mb-8 text-2xl" aria-label="Close menu">&times;</button>
+        <nav class="flex flex-col gap-6 font-bold text-xl">
+            <a href="#home" onclick="toggleMenu()" class="hover:text-lo-coral transition">Home</a>
+            <a href="#programs" onclick="toggleMenu()" class="hover:text-lo-coral transition">Programs</a>
+            <a href="#sessions" onclick="toggleMenu()" class="hover:text-lo-coral transition">Sessions</a>
+            <a href="#philosophy" onclick="toggleMenu()" class="hover:text-lo-coral transition">Philosophy</a>
+            <a href="#team" onclick="toggleMenu()" class="hover:text-lo-coral transition">Team</a>
+            <a href="#contact" onclick="toggleMenu()" class="hover:text-lo-coral transition">Contact</a>
+        </nav>
+    </div>
+</div>
+
+<!-- HERO -->
+<section id="home" class="relative w-full pt-32 sm:pt-40 md:pt-44 pb-32 sm:pb-48 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/hero-home.jpg');">
+    <div class="absolute inset-0 bg-white/60"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 text-center">
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4" style="color: var(--lo-dark)">
+            For Future-Ready Learners
+        </h1>
+
+        <h3 class="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 sm:mb-6" style="color: var(--lo-dark)">
+            Play-Based Life Skills for Kids 5 to 9
+        </h3>
+
+        <p class="text-slate-700 text-base sm:text-lg max-w-2xl mx-auto px-4">
+            Children learn best through stories, games, movement and meaningful conversations.
+            Every Little Owls session builds thinking, social & emotional skills — joyfully.
+        </p>
+
+        <div class="mt-6 sm:mt-8">
+            <a href="#programs" class="hero-btn-primary text-sm sm:text-base">
+                Find a Little Owls Program Near You
+            </a>
+        </div>
+
+        <!-- WHAT WE STAND FOR -->
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-16 sm:mt-20 mb-8 sm:mb-10" style="color: var(--lo-dark)">
+            What We Stand For
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-xl shadow-md p-6 sm:p-8 text-center hover:shadow-xl transition">
+                <div class="mx-auto w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center" style="background: rgba(255,120,40,0.15);">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8 text-[#ff6b2c]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3a6 6 0 00-3 11.3V17a1 1 0 001 1h4a1 1 0 001-1v-2.7A6 6 0 0012 3z" />
+                    </svg>
+                </div>
+                <h3 class="mt-4 sm:mt-6 font-semibold text-lg sm:text-xl" style="color: var(--lo-dark)">Play as Serious Learning</h3>
+                <p class="text-sm text-slate-600 mt-2 sm:mt-3">Stories, games and imagination are our tools.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-xl shadow-md p-6 sm:p-8 text-center hover:shadow-xl transition">
+                <div class="mx-auto w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center" style="background: rgba(255,150,150,0.25);">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8 text-[#ff6b6b]" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21s-6.1-4.35-9.2-8.05C-1.3 8.74 2.05 3 6.88 3 9.5 3 12 4.67 12 4.67S14.5 3 17.12 3C21.95 3 25.3 8.74 21.2 12.95 18.1 16.65 12 21 12 21z"/>
+                    </svg>
+                </div>
+                <h3 class="mt-4 sm:mt-6 font-semibold text-lg sm:text-xl" style="color: var(--lo-dark)">Child-Centered</h3>
+                <p class="text-sm text-slate-600 mt-2 sm:mt-3">Not just scores — mind, heart and voice matter.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-xl shadow-md p-6 sm:p-8 text-center hover:shadow-xl transition">
+                <div class="mx-auto w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center" style="background: rgba(255,210,80,0.25);">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 sm:w-8 sm:h-8 text-[#d18b00]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4s-4 1.79-4 4 1.79 4 4 4zm0 2c-5 0-8 2.5-8 5v1h16v-1c0-2.5-3-5-8-5z" />
+                    </svg>
+                </div>
+                <h3 class="mt-4 sm:mt-6 text-lg sm:text-xl font-semibold" style="color: var(--lo-dark)">Children Have Agency</h3>
+                <p class="text-sm text-slate-600 mt-2 sm:mt-3">They lead, choose & reflect.</p>
+            </div>
+        </div>
+
+        <!-- WHY PARENTS LOVE US -->
+        <div class="relative z-10 max-w-6xl mx-auto mt-16 sm:mt-24">
+            <div class="bg-white/60 backdrop-blur-xl border border-white/30 shadow-2xl rounded-3xl p-6 sm:p-12">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 sm:mb-10" style="color: var(--lo-dark)">
+                    Why Parents (and Schools) Love Us
+                </h2>
+
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10 text-center sm:text-left">
+                    <!-- Items -->
+                    <div class="flex flex-col items-center sm:items-start gap-2">
+                        <div class="w-10 h-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 11a8 8 0 10-3 6.3L21 21v-6z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold" style="color: var(--lo-dark)">More Expressive</h3>
+                        <p class="text-slate-600 text-sm">Children put words to feelings.</p>
+                    </div>
+
+                    <div class="flex flex-col items-center sm:items-start gap-2">
+                        <div class="w-10 h-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M7 8a3 3 0 00-3 3v1a3 3 0 006 0V6a3 3 0 00-3 2zm10 0a3 3 0 013 3v1a3 3 0 01-6 0V6a3 3 0 013 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold" style="color: var(--lo-dark)">Better Problem-Solving</h3>
+                        <p class="text-slate-600 text-sm">Encouraged to think, apply knowledge & reflect.</p>
+                    </div>
+
+                    <div class="flex flex-col items-center sm:items-start gap-2">
+                        <div class="w-10 h-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="12" r="3"/>
+                                <circle cx="19" cy="12" r="3"/>
+                                <path d="M4 20c0-3 3-6 6-6"/>
+                                <path d="M24 20c0-3-3-6-6-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold" style="color: var(--lo-dark)">Improved Friendships</h3>
+                        <p class="text-slate-600 text-sm">More sharing, listening & collaborating.</p>
+                    </div>
+
+                    <div class="flex flex-col items-center sm:items-start gap-2">
+                        <div class="w-10 h-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 21h4"/>
+                                <path d="M10 17h8c1.5-1.5 2.2-3 2.2-5A6.2 6.2 0 0012 6a6.2 6.2 0 00-8.2 6c0 2 1 3.5 2.2 5h8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold" style="color: var(--lo-dark)">Based on Research</h3>
+                        <p class="text-slate-600 text-sm">Designed for Gen Alpha & Beta.</p>
+                    </div>
+
+                    <div class="flex flex-col items-center sm:items-start gap-2">
+                        <div class="w-10 h-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 21s-6.1-4.35-9.2-8.05C-1.3 8.74 2.05 3 6.88 3 9.5 3 12 4.67 12 4.67S14.5 3 17.12 3C21.95 3 25.3 8.74 21.2 12.95 18.1 16.65 12 21 12 21z"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold" style="color: var(--lo-dark)">School-Aligned</h3>
+                        <p class="text-slate-600 text-sm">NEP 2020 friendly & complements curriculum.</p>
+                    </div>
+
+                    <div class="flex flex-col items-center sm:items-start gap-2">
+                        <div class="w-10 h-10 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9"/>
+                                <path d="M8 14s2 2 4 2 4-2 4-2"/>
+                                <path d="M9 10h.01M15 10h.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="font-bold" style="color: var(--lo-dark)">Children Love It</h3>
+                        <p class="text-slate-600 text-sm">Structured play that feels like fun.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs" class="relative w-full min-h-screen pb-32 sm:pb-48 pt-12 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/classroom.png');">
+    <div class="absolute inset-0 bg-white/60"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 text-center">
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 sm:mb-6" style="color: var(--lo-dark)">
+            Our Programs
+        </h1>
+
+        <p class="text-slate-700 text-base sm:text-lg max-w-2xl mx-auto mb-12 sm:mb-16 px-4">
+            Structured journeys in Thinking, Social & Emotional Skills for Early Years.
+        </p>
+        
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-6" style="color: var(--lo-dark)">
+            Program Levels
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-6 sm:gap-10">
+            <!-- Little Explorers -->
+            <div class="bg-white/60 backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-6 sm:p-10 text-left">
+                <h3 class="text-xl sm:text-2xl font-semibold mb-2" style="color: var(--lo-dark)">Little Explorers</h3>
+                <p class="text-base sm:text-lg font-semibold mb-2 sm:mb-4" style="color: var(--lo-coral)">Ages 5–6</p>
+                <p class="text-base sm:text-lg font-semibold mb-2 sm:mb-4" style="color: var(--lo-coral)">First steps into life skills.</p>
+                <p class="text-slate-700 text-sm sm:text-base">Children learn to share, take turns, recognise feelings, listen to others and start solving simple problems through play and stories.</p>
+
+                <div class="mt-4 sm:mt-6 space-y-3">
+                    <div class="flex justify-center gap-3 sm:gap-4 flex-wrap">
+                        <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#FFEFE6] rounded-full text-xs sm:text-sm font-semibold text-[#FF7A00]">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="#FF7A00">
+                                <path d="M9 2C7.34 2 6 3.34 6 5v1c-1.66 0-3 1.34-3 3v2c0 1.66 1.34 3 3 3v1c0 1.66 1.34 3 3 3h1V2H9zm6 0h-1v16h1c1.66 0 3-1.34 3-3v-1c1.66 0 3-1.34 3-3V9c0-1.66-1.34-3-3-3V5c0-1.66-1.34-3-3-3z"/>
+                            </svg>
+                            Thinking
+                        </div>
+                        <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#FFE9E1] rounded-full text-xs sm:text-sm font-semibold text-[#FF7A00]">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="#FF7A00">
+                                <path d="M12 21s-6-4.35-9-8.05C-1.3 8.74 2 3 7 3c2.5 0 5 1.67 5 1.67S14.5 3 17 3c5 0 8.3 5.74 4 9.95C18 16.65 12 21 12 21z"/>
+                            </svg>
+                            Social
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#FFE5E8] rounded-full text-xs sm:text-sm font-semibold text-[#FF7A00]">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="#FFD600">
+                                <path d="M12 21s-6-4.35-9-8.05C-1.3 8.74 2 3 7 3c2.5 0 5 1.67 5 1.67S14.5 3 17 3c5 0 8.3 5.74 4 9.95C18 16.65 12 21 12 21z"/>
+                            </svg>
+                            Emotional
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Growing Thinkers -->
+            <div class="bg-white/60 backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-6 sm:p-10 text-left">
+                <h3 class="text-xl sm:text-2xl font-semibold mb-2" style="color: var(--lo-dark)">Growing Thinkers</h3>
+                <p class="text-base sm:text-lg font-semibold mb-2 sm:mb-4" style="color: var(--lo-coral)">Ages 6–7</p>
+                <p class="text-base sm:text-lg font-semibold mb-2 sm:mb-4" style="color: var(--lo-coral)">Building confidence and perspective.</p>
+                <p class="text-slate-700 text-sm sm:text-base">Children practise planning, sequencing, explaining their ideas, working in pairs and teams, and understanding how their choices affect others.</p>
+
+                <div class="mt-4 sm:mt-6 space-y-3">
+                    <div class="flex justify-center gap-3 sm:gap-4 flex-wrap">
+                        <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#FFEFE6] rounded-full text-xs sm:text-sm font-semibold text-[#FF7A00]">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="#FF7A00">
+                                <path d="M9 2C7.34 2 6 3.34 6 5v1c-1.66 0-3 1.34-3 3v2c0 1.66 1.34 3 3 3v1c0 1.66 1.34 3 3 3h1V2H9zm6 0h-1v16h1c1.66 0 3-1.34 3-3v-1c1.66 0 3-1.34 3-3V9c0-1.66-1.34-3-3-3V5c0-1.66-1.34-3-3-3z"/>
+                            </svg>
+                            Thinking
+                        </div>
+                        <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#FFE9E1] rounded-full text-xs sm:text-sm font-semibold text-[#FF7A00]">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="#FF7A00">
+                                <path d="M12 21s-6-4.35-9-8.05C-1.3 8.74 2 3 7 3c2.5 0 5 1.67 5 1.67S14.5 3 17 3c5 0 8.3 5.74 4 9.95C18 16.65 12 21 12 21z"/>
+                            </svg>
+                            Social
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#FFE5E8] rounded-full text-xs sm:text-sm font-semibold text-[#FF7A00]">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="#FFD600">
+                                <path d="M12 21s-6-4.35-9-8.05C-1.3 8.74 2 3 7 3c2.5 0 5 1.67 5 1.67S14.5 3 17 3c5 0 8.3 5.74 4 9.95C18 16.65 12 21 12 21z"/>
+                            </svg>
+                            Emotional
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Independent Minds -->
+            <div class="bg-white/60 backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-6 sm:p-10 text-left">
+                <h3 class="text-xl sm:text-2xl font-semibold mb-2" style="color: var(--lo-dark)">Independent Minds</h3>
+                <p class="text-base sm:text-lg font-semibold mb-2 sm:mb-4" style="color: var(--lo-coral)">Ages 7–9</p>
+                <p class="text-base sm:text-lg font-semibold mb-2 sm:mb-4" style="color: var(--lo-coral)">Preparing for bigger worlds.</p>
+                <p class="text-slate-700 text-sm sm:text-base">Children work on critical thinking, handling mistakes, coping with frustration, leading group tasks, and communicating clearly and respectfully.</p>
+
+                <div class="mt-4 sm:mt-6 space-y-3">
+                    <div class="flex justify-center gap-3 sm:gap-4 flex-wrap">
+                        <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#FFEFE6] rounded-full text-xs sm:text-sm font-semibold text-[#FF7A00]">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="#FF7A00">
+                                <path d="M9 2C7.34 2 6 3.34 6 5v1c-1.66 0-3 1.34-3 3v2c0 1.66 1.34 3 3 3v1c0 1.66 1.34 3 3 3h1V2H9zm6 0h-1v16h1c1.66 0 3-1.34 3-3v-1c1.66 0 3-1.34 3-3V9c0-1.66-1.34-3-3-3V5c0-1.66-1.34-3-3-3z"/>
+                            </svg>
+                            Thinking
+                        </div>
+                        <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#FFE9E1] rounded-full text-xs sm:text-sm font-semibold text-[#FF7A00]">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="#FF7A00">
+                                <path d="M12 21s-6-4.35-9-8.05C-1.3 8.74 2 3 7 3c2.5 0 5 1.67 5 1.67S14.5 3 17 3c5 0 8.3 5.74 4 9.95C18 16.65 12 21 12 21z"/>
+                            </svg>
+                            Social
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="flex items-center gap-2 px-3 sm:px-4 py-1.5 bg-[#FFE5E8] rounded-full text-xs sm:text-sm font-semibold text-[#FF7A00]">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="#FFD600">
+                                <path d="M12 21s-6-4.35-9-8.05C-1.3 8.74 2 3 7 3c2.5 0 5 1.67 5 1.67S14.5 3 17 3c5 0 8.3 5.74 4 9.95C18 16.65 12 21 12 21z"/>
+                            </svg>
+                            Emotional
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-8 sm:mt-10 mx-auto max-w-3xl text-center text-sm sm:text-base md:text-lg text-slate-700 leading-relaxed bg-white/50 backdrop-blur-md rounded-2xl px-4 sm:px-6 py-4 shadow">
+            Each level weaves together <span class="font-bold text-[#FF7A00]">Thinking</span>, <span class="font-bold text-[#FF7A00]">Social</span>, and <span class="font-bold text-[#FF7A00]">Emotional Skills</span> with age-appropriate themes and challenges.
+        </p>
+
+        <!-- Customised for Every School -->
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 mt-16 sm:mt-20">
+            <div class="bg-white/60 backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-6 sm:p-10 md:p-14 text-center">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6" style="color: var(--lo-dark)">
+                    Customised for Every School
+                </h2>
+                <p class="text-slate-700 text-base sm:text-lg mb-8 sm:mb-10">
+                    No two schools are the same. We adapt our modules to:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 mb-8 sm:mb-10">
+                    <div class="flex flex-col items-center">
+                        <svg width="36" height="36" fill="#FF7A00" viewBox="0 0 24 24">
+                            <path d="M12 3L2 9l10 6 10-6-10-6zm0 8.75L5 9l7-4.25L19 9l-7 2.75zM5 12v7l7 4 7-4v-7l-7 3.75L5 12z"/>
+                        </svg>
+                        <p class="mt-3 text-slate-700 text-sm sm:text-base">Your school's ethos and culture</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <svg width="36" height="36" fill="#FF7A00" viewBox="0 0 24 24">
+                            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-4 0-8 2-8 6v2h16v-2c0-4-4-6-8-6z"/>
+                        </svg>
+                        <p class="mt-3 text-slate-700 text-sm sm:text-base">The background and needs of your learners</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <svg width="36" height="36" fill="#FF7A00" viewBox="0 0 24 24">
+                            <path d="M12 21s-6.5-4.3-9-8.7C-1 7 2 2 6.5 2 9 2 11 4 12 5.1 13 4 15 2 17.5 2 22 2 25 7 21 12.3 18.5 16.7 12 21 12 21z"/>
+                        </svg>
+                        <p class="mt-3 text-slate-700 text-sm sm:text-base">Themes you're already working on</p>
+                    </div>
+                </div>
+
+                <p class="text-lg sm:text-xl font-semibold text-[#FF7A00] leading-relaxed">
+                    We co-plan with school leaders and teachers so Little Owls feels like a natural extension of your curriculum.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SESSIONS -->
+<section id="sessions" class="relative w-full min-h-screen pb-32 sm:pb-48 pt-12 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/pattern-soft.png');">
+    <div class="absolute inset-0 bg-white/40"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 text-center">
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 sm:mb-6" style="color: var(--lo-dark)">
+            Inside a Little Owls Session
+        </h1>
+        <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto mb-12 sm:mb-16 px-4">
+            A Little Owls session feels like storytime, game time and "a-ha!" time rolled into one.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
+            <div class="bg-white/20 backdrop-blur-8xl border border-white/30 shadow-xl rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold" style="background: rgba(255,120,40,0.15); color: #ff6b2c;">1</div>
+                <h3 class="mt-4 font-semibold text-base sm:text-lg" style="color: var(--lo-dark)">Warm-Up</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2">We start with a quick warm-up to settle bodies and minds.</p>
+            </div>
+
+            <div class="bg-white/20 backdrop-blur-8xl border border-white/30 shadow-xl rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold" style="background: rgba(255,150,150,0.25); color: #ff6b6b;">2</div>
+                <h3 class="mt-4 font-semibold text-base sm:text-lg" style="color: var(--lo-dark)">Spark Curiosity</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2">A story, challenge or real-life scenario sparks curiosity.</p>
+            </div>
+
+            <div class="bg-white/20 backdrop-blur-8xl border border-white/30 shadow-xl rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold" style="background: rgba(255,210,80,0.25); color: #d18b00;">3</div>
+                <h3 class="mt-4 font-semibold text-base sm:text-lg" style="color: var(--lo-dark)">Active Play</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2">Children work in teams, role-play, build, decide and solve.</p>
+            </div>
+
+            <div class="bg-white/20 backdrop-blur-8xl border border-white/30 shadow-xl rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold" style="background: rgba(255,160,160,0.25); color: #ff7b7b;">4</div>
+                <h3 class="mt-4 font-semibold text-base sm:text-lg" style="color: var(--lo-dark)">Reflection Circle</h3>
+                <p class="text-xs sm:text-sm text-slate-600 mt-2">Children name what they felt, learnt and want to try next.</p>
+            </div>
+        </div>
+
+        <p class="text-center text-base sm:text-lg font-semibold mt-12 sm:mt-16" style="color: var(--lo-coral)">
+            It's structured, but it feels like play.
+        </p>
+    </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy" class="relative w-full min-h-screen pb-32 sm:pb-48 pt-12 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/hero-philosophy.jpg');">
+    <div class="absolute inset-0 bg-white/60"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6">
+        <h2 class="text-center text-2xl sm:text-3xl md:text-5xl font-bold mb-10 sm:mb-14" style="color: var(--lo-dark)">
+            What We Believe
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8 sm:gap-12 mb-16">
+            <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 sm:p-10 flex flex-col sm:flex-row gap-4 sm:gap-6">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-[#FFE7D6] shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="#ff7a00" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 8a3 3 0 00-3 3v1a3 3 0 006 0V6a3 3 0 00-3 2zm10 0a3 3 0 013 3v1a3 3 0 01-6 0V6a3 3 0 013 2z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3" style="color: var(--lo-dark)">Life Skills Are the New Basics</h3>
+                    <p class="text-base sm:text-lg text-slate-700 leading-relaxed">Reading and maths matter — but so do problem-solving, emotions, listening and collaboration.</p>
+                </div>
+            </div>
+
+            <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 sm:p-10 flex flex-col sm:flex-row gap-4 sm:gap-6">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-[#FFE5EA] shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="#ff7a7a" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l12 7-12 7V5z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3" style="color: var(--lo-dark)">Play Is How Children Learn Best</h3>
+                    <p class="text-base sm:text-lg text-slate-700 leading-relaxed">When learning feels like play, children are curious, confident and fully engaged.</p>
+                </div>
+            </div>
+
+            <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 sm:p-10 flex flex-col sm:flex-row gap-4 sm:gap-6">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-[#FFF2D2] shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="#d18b00" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-3 0-6 1.5-6 4v1h12v-1c0-2.5-3-4-6-4z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3" style="color: var(--lo-dark)">Children Are Capable</h3>
+                    <p class="text-base sm:text-lg text-slate-700 leading-relaxed">With trust and space, children express themselves, solve problems and take responsibility.</p>
+                </div>
+            </div>
+
+            <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 sm:p-10 flex flex-col sm:flex-row gap-4 sm:gap-6">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-[#FFE7EC] shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 sm:w-8 sm:h-8" fill="none" viewBox="0 0 24 24" stroke="#ff6b6b" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-4.5-9.5-9C-1.1 7.1 2.5 3 7 3c2.5 0 4 1.5 5 3 1-1.5 2.5-3 5-3 4.5 0 8.1 4.1 4.5 9-2.5 4.5-9.5 9-9.5 9z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-2 sm:mb-3" style="color: var(--lo-dark)">Schools Need Support, Not Replacement</h3>
+                    <p class="text-base sm:text-lg text-slate-700 leading-relaxed">We enrich what schools already do — partnering, not replacing.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUR PEDAGOGY & CURRICULUM - Compact for mobile -->
+        <div class="space-y-12">
+            <!-- Pedagogy -->
+            <div class="bg-white/70 backdrop-blur-xl border border-white/30 rounded-3xl shadow-2xl p-6 sm:p-10 md:p-14">
+                <div class="text-center mb-8 sm:mb-14">
+                    <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold" style="color: var(--lo-dark)">Our Pedagogy</h2>
+                    <p class="text-base sm:text-lg text-slate-600 mt-2">How we actually teach</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10">
+                    <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl p-4 sm:p-8 flex gap-3 sm:gap-5">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-[#FFE7D6] flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="sm:w-7 sm:h-7" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="14" cy="14" r="2"/><circle cx="14" cy="14" r="6"/><circle cx="14" cy="14" r="10"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-sm sm:text-lg" style="color: var(--lo-dark)">Active, Not Passive</h3>
+                            <p class="text-slate-700 text-xs sm:text-sm mt-1">Children do things, not just listen to things.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl p-4 sm:p-8 flex gap-3 sm:gap-5">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-[#FFE7D6] flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="sm:w-7 sm:h-7" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="10" r="3"/><circle cx="19" cy="10" r="3"/><path d="M4 20c0-3 3-6 6-6"/><path d="M24 20c0-3-3-6-6-6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-sm sm:text-lg" style="color: var(--lo-dark)">Collaborative</h3>
+                            <p class="text-slate-700 text-xs sm:text-sm mt-1">We create opportunities for teamwork, negotiation and shared decision-making.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl p-4 sm:p-8 flex gap-3 sm:gap-5">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-[#FFE7D6] flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="sm:w-7 sm:h-7" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 21h4"/><path d="M10 17h8c1.5-1.5 2.2-3 2.2-5A6.2 6.2 0 0012 6a6.2 6.2 0 00-8.2 6c0 2 1 3.5 2.2 5h8z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-sm sm:text-lg" style="color: var(--lo-dark)">Reflective</h3>
+                            <p class="text-slate-700 text-xs sm:text-sm mt-1">Every session ends with reflection: what worked, what didn't, what did I learn?</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl p-4 sm:p-8 flex gap-3 sm:gap-5">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-[#FFE7D6] flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="sm:w-7 sm:h-7" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M8 4v16m8-16v16M6 10h12M6 16h12"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-sm sm:text-lg" style="color: var(--lo-dark)">Scaffolded</h3>
+                            <p class="text-slate-700 text-xs sm:text-sm mt-1">We start simple and build complexity as children show readiness.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl p-4 sm:p-8 flex gap-3 sm:gap-5">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-[#FFE7D6] flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="sm:w-7 sm:h-7" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s-7-4-7-10V6l7-3 7 3v6c0 6-7 10-7 10z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-sm sm:text-lg" style="color: var(--lo-dark)">Safe, But Not Sterile</h3>
+                            <p class="text-slate-700 text-xs sm:text-sm mt-1">We encourage risk-taking and trying new things in a supportive environment.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl p-4 sm:p-8 flex gap-3 sm:gap-5">
+                        <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-[#FFE7D6] flex items-center justify-center shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="sm:w-7 sm:h-7" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3l1.8 5.2L18 10l-4.2 1.8L12 17l-1.8-5.2L6 10l4.2-1.8z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-sm sm:text-lg" style="color: var(--lo-dark)">Joyful</h3>
+                            <p class="text-slate-700 text-xs sm:text-sm mt-1">If it's not enjoyable, it's not sustainable. Fun is non-negotiable.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Curriculum -->
+            <div class="bg-white/70 backdrop-blur-xl border border-white/30 rounded-3xl shadow-2xl p-6 sm:p-10 md:p-14">
+                <div class="text-center mb-8 sm:mb-14">
+                    <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold" style="color: var(--lo-dark)">Our Curriculum</h2>
+                    <p class="text-base sm:text-lg text-slate-600 mt-2">Three interconnected pillars</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 sm:gap-10">
+                    <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 sm:p-10 text-center">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-[#FFE7D6] flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" class="sm:w-8 sm:h-8" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M7 8a3 3 0 00-3 3v1a3 3 0 006 0V6a3 3 0 00-3 2zm10 0a3 3 0 013 3v1a3 3 0 01-6 0V6a3 3 0 013 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-[#FF7A00] mb-3 sm:mb-4">Thinking Skills</h3>
+                        <ul class="text-slate-700 text-left space-y-2 leading-relaxed text-sm sm:text-base">
+                            <li>• Problem-solving</li>
+                            <li>• Decision-making</li>
+                            <li>• Planning and sequencing</li>
+                            <li>• Critical thinking</li>
+                            <li>• Creative thinking</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 sm:p-10 text-center">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-[#FFE7D6] flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" class="sm:w-8 sm:h-8" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="10" r="3"/><circle cx="19" cy="10" r="3"/><path d="M4 20c0-3 3-6 6-6"/><path d="M24 20c0-3-3-6-6-6"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-[#FF7A00] mb-3 sm:mb-4">Social Skills</h3>
+                        <ul class="text-slate-700 text-left space-y-2 leading-relaxed text-sm sm:text-base">
+                            <li>• Listening and speaking</li>
+                            <li>• Taking turns and sharing</li>
+                            <li>• Teamwork and collaboration</li>
+                            <li>• Conflict resolution</li>
+                            <li>• Empathy & perspective-taking</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 sm:p-10 text-center">
+                        <div class="w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-[#FFE7D6] flex items-center justify-center mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" class="sm:w-8 sm:h-8" fill="none" stroke="#FF7A00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 21s-6.1-4.35-9.2-8.05C-1.3 8.74 2.05 3 6.88 3 9.5 3 12 4.67 12 4.67S14.5 3 17.12 3C21.95 3 25.3 8.74 21.2 12.95 18.1 16.65 12 21 12 21z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold text-[#FF7A00] mb-3 sm:mb-4">Emotional Skills</h3>
+                        <ul class="text-slate-700 text-left space-y-2 leading-relaxed text-sm sm:text-base">
+                            <li>• Recognising feelings</li>
+                            <li>• Managing frustration</li>
+                            <li>• Building confidence</li>
+                            <li>• Handling mistakes</li>
+                            <li>• Self-awareness</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="text-center text-slate-700 text-sm sm:text-base md:text-lg mt-8 sm:mt-10 leading-relaxed">
+                    These pillars aren't taught separately. In every session, children engage all three — thinking through a challenge, working with others, and managing their emotions along the way.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TEAM -->
+<section id="team" class="relative w-full min-h-screen pb-32 sm:pb-48 pt-12 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/pattern-soft1.png');">
+    <div class="absolute inset-0 bg-white/50"></div>
+
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="bg-white/60 backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-6 sm:p-12 md:p-16">
+            <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold text-center mb-8 sm:mb-10" style="color: var(--lo-dark)">
+                About the LOC Team
+            </h1>
+
+            <div class="text-base sm:text-lg md:text-xl text-slate-700 leading-relaxed space-y-4 sm:space-y-6">
+                <p>We're a team of mothers on a mission!!</p>
+                <p>Mothers who bring decades of corporate and entrepreneurial experience — and a shared passion for building future-ready, confident young learners.</p>
+                <p>One of our founders has formally studied Early Childhood Education the Finnish way through HY+ (University of Helsinki), globally recognised as the world's leading model for early learning. This brings deep, research-backed insight into how children actually learn — through joy, curiosity, choice, and exploration.</p>
+            </div>
+
+            <div class="bg-white/70 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 sm:p-10 mt-8 sm:mt-12">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 text-left" style="color: var(--lo-dark)">
+                    Little Owls Club is built to blend global pedagogy and real parenting wisdom.
+                </h2>
+                <ul class="list-disc pl-5 sm:pl-6 space-y-3 sm:space-y-4 text-base sm:text-lg text-slate-700 text-left leading-relaxed">
+                    <li>On our belief that childhood should feel joyful.</li>
+                    <li>On our passion to nurture curious, resilient, empathetic thinkers.</li>
+                    <li>And on our conviction that strong foundations built early, can shape a child for life.</li>
+                </ul>
+            </div>
+
+            <p class="text-base sm:text-lg md:text-xl text-slate-700 leading-relaxed mt-8 sm:mt-10">
+                Every program we run is thoughtfully designed: rooted in evidence-based learning, infused with heart, and driven by our commitment to create real impact — one child and one meaningful moment at a time.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="relative w-full min-h-screen pb-32 sm:pb-48 pt-12 bg-cover bg-center bg-no-repeat" style="background-image: url('assets/owl-letter.png');">
+    <div class="absolute inset-0 bg-white/30 backdrop-blur-[2px]"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 flex justify-center md:justify-end">
+        <div class="bg-white/60 backdrop-blur-xl border border-white/30 shadow-2xl rounded-3xl p-6 sm:p-10 w-full md:w-[60%] lg:w-[50%] space-y-4 sm:space-y-6">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold" style="color: var(--lo-dark)">Let's Work Together</h2>
+            
+            <p class="text-base sm:text-lg text-slate-700 leading-relaxed">
+                Whether you're a school, microschool or parent community — we'd love to explore how Little Owls can support your learners.
+            </p>
+
+            <p class="text-base sm:text-lg">
+                <strong>Email Us:</strong><br>
+                <a href="mailto:divya@littleowlsclub.com" class="text-lo-coral underline break-all">
+                    divya@littleowlsclub.com
+                </a>
+            </p>
+
+            <p class="text-base sm:text-lg font-semibold" style="color: var(--lo-dark)">Follow Us:</p>
+
+            <div class="flex gap-4 sm:gap-6 items-center">
+                <a href="https://www.linkedin.com/company/little-owls-club" target="_blank" rel="noopener noreferrer" class="p-3 sm:p-4 bg-white/80 rounded-full shadow hover:scale-105 transition" aria-label="LinkedIn">
+                    <img src="assets/linkedin.png" class="w-8 h-8 sm:w-10 sm:h-10" alt="LinkedIn" loading="lazy" />
+                </a>
+                <a href="https://www.instagram.com/littleowlsclub/" target="_blank" rel="noopener noreferrer" class="p-3 sm:p-4 bg-white/80 rounded-full shadow hover:scale-105 transition" aria-label="Instagram">
+                    <img src="assets/instagram.png" class="w-8 h-8 sm:w-10 sm:h-10" alt="Instagram" loading="lazy" />
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-8 sm:py-10 text-center" style="background-color: var(--lo-dark); color: white;">
+    <img src="assets/logo.png" class="w-12 sm:w-16 mx-auto mb-3" alt="Little Owls Club" loading="lazy" />
+    <p class="text-xs sm:text-sm">© 2025 Little Owls Club — Life Skills Made Fun</p>
+</footer>
+
+<script>
+function toggleMenu() {
+    const menu = document.querySelector('.mobile-menu');
+    const overlay = document.querySelector('.menu-overlay');
+    menu.classList.toggle('active');
+    overlay.classList.toggle('active');
+    document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+}
+</script>
+
+</body>
+</html>
